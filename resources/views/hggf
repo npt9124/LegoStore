@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .panel-heading {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .panel-body {
+            padding: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-update {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-update:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Cập nhật danh mục sản phẩm
+                    </div>
+
+                    @if(Session::has('message'))
+                    <div class="alert alert-success">
+                        {{ Session::get('message') }}
+                        {{ Session::forget('message') }}
+                    </div>
+                    @endif
+
+                    <div class="panel-body">
+                        @foreach($edit_ctg_product as $key => $edit_value)
+                        <div class="position-center">
+                            <form role="form" action="{{URL::to('/edit-ctg-product/'.$edit_value->cate_id)}}" method="post">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label for="cate_name">Tên danh mục</label>
+                                    <input type="text" name="cate_name" class="form-control" id="cate_name" placeholder="Tên danh mục" value="{{ $edit_value->cate_name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cate_desc">Mô tả danh mục</label>
+                                    <textarea name="cate_desc" class="form-control" id="cate_desc" placeholder="Mô tả danh mục">{{ $edit_value->cate_desc }}</textarea>
+                                </div>
+                                <button type="submit" name="update_ctg_product" class="btn btn-update">Cập nhật</button>
+                            </form>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
